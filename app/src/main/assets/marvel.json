@@ -1,0 +1,25 @@
+{
+  "superHeros": [
+    {
+      "name" : "Moon Knight",
+      "alias" : "Marc Spector",
+      "avenger" : false,
+      "firstAppearance" : "Werewolf by Night #32 (1975)",
+      "imageUrl" : "http://i.annihil.us/u/prod/marvel//universe3zx/images/2/2f/Moon_knight_inline_2.jpg"
+    },
+    {
+      "name" : "Spider-Man",
+      "alias" : "Peter Benjamin Parke",
+      "avenger" : true,
+      "firstAppearance" : "Amazing Fantasy #15 (1962)",
+      "imageUrl" : "http://x.annihil.us/u/prod/marvel/i/mg/6/60/538cd3628a05e.jpg"
+    },
+    {
+      "name" : "Thor",
+      "alias" : null,
+      "avenger" : true,
+      "firstAppearance" : "Journey into Mystery #83",
+      "imageUrl" : "http://x.annihil.us/u/prod/marvel/i/mg/7/10/537bc71e9286f.jpg"
+    }
+  ]
+}
