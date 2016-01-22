@@ -21,6 +21,10 @@
             android:name=".PojoActivity"
             android:label="@string/pojo_activity"
             android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".BaseObservableActivity"
+            android:label="@string/baseobserve_activity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

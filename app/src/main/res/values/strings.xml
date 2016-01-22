@@ -2,5 +2,7 @@
     <string name="app_name">\@Binding Android</string>
     <string name="pojo_activity">Pojo Binding Activity</string>
     <string name="pojo_binding">Pojo Binding</string>
+    <string name="baseobserve_activity">BaseObservable Binding Activity</string>
+    <string name="baseobserve_binding">BaseObservable Binding</string>
     <string name="firstAppearanceLine">%1$s first appeared in %2$s</string>
 </resources>

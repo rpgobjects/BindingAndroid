@@ -18,7 +18,15 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,PojoActivity.class));
+                startActivity(new Intent(MainActivity.this, PojoActivity.class));
+            }
+        });
+
+        button = (Button) findViewById(R.id.baseobserve_binding_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,BaseObservableActivity.class));
             }
         });
     }

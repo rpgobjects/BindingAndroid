@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.devfestmn.bindingandroid.databinding.PojobindBinding;
 import com.devfestmn.bindingandroid.handlers.Avengers;
+import com.devfestmn.bindingandroid.model.Marvel;
 import com.devfestmn.bindingandroid.model.SuperHero;
 import com.squareup.picasso.Picasso;
 
@@ -20,7 +21,7 @@ public class PojoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PojobindBinding binding = DataBindingUtil.setContentView(this, R.layout.pojobind);
-        ArrayList<SuperHero> heros = SuperHero.getSuperHeros(this);
+        ArrayList<SuperHero> heros = Marvel.getSuperHeros(this);
         int i = new Random().nextInt(heros.size());
         binding.setSuperhero(heros.get(i));
         binding.setHandlers(new Avengers());

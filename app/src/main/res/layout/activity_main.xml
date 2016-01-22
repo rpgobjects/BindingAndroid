@@ -3,16 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.devfestmn.bindingandroid.MainActivity">
 
     <Button
+        android:layout_margin="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pojo_binding"
         android:id="@+id/pojo_binding_button"/>
+
+    <Button
+        android:layout_margin="16dp"
+        android:layout_below="@id/pojo_binding_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/baseobserve_binding"
+        android:id="@+id/baseobserve_binding_button"/>
 
 </RelativeLayout>

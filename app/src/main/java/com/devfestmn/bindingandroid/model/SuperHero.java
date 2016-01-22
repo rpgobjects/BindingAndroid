@@ -10,9 +10,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by chris on 1/11/16.
- */
+
 public class SuperHero {
     String name;
     String alias;
@@ -39,15 +37,5 @@ public class SuperHero {
 
     public String getImageUrl() {
         return imageUrl;
-    }
-
-    public static class Marvel {
-        ArrayList<SuperHero> superHeros;
-    }
-
-    static public ArrayList<SuperHero> getSuperHeros(Context context) {
-        String json  = AssetUtil.loadFromAsset("marvel.json",context);
-        Marvel marvel = new Gson().fromJson(json,Marvel.class);
-        return marvel.superHeros;
     }
 }
