@@ -22,11 +22,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.baseobserve_binding_button);
+        button = (Button) findViewById(R.id.baseobservable_binding_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,BaseObservableActivity.class));
+            }
+        });
+
+        button = (Button) findViewById(R.id.observablefield_binding_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,ObservableFieldActivity.class));
             }
         });
     }

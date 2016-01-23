@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="superhero" type="com.devfestmn.bindingandroid.model.SuperHeroPlain" />
+        <variable name="handlers" type="com.devfestmn.bindingandroid.handlers.Avengers" />
+        <import type="android.view.View"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                app:imageUrl="@{superhero.imageUrl}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/marvel_heroes"/>
+
+            <TextView
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                style="@style/Base.TextAppearance.AppCompat.Headline"
+                android:layout_height="wrap_content"
+                android:text="@{superhero.name}"
+                tools:text="Super Hero"
+                />
+
+            <TextView
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                android:layout_height="wrap_content"
+                android:text='@{"AKA " + superhero.alias}'
+                tools:text="Alias"
+                android:visibility="@{(superhero.alias!=null) ? View.VISIBLE : View.GONE}"
+                />
+
+            <TextView
+                android:layout_margin="8dp"
+                android:layout_width="match_parent"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                android:layout_height="wrap_content"
+                android:text="@{@string/firstAppearanceLine(superhero.name, superhero.firstAppearance)}"
+                tools:text="Comic issue #1"
+                />
+
+            <ImageButton
+                android:onClick="@{superhero.avenger ? handlers.assemble : handlers.notMember}"
+                android:layout_gravity="center"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/avengers_logo"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:onClick="setRandomSuperhero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Hero!"/>
+    </RelativeLayout>
+
+</layout>

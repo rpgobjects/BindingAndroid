@@ -7,27 +7,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.devfestmn.bindingandroid.databinding.BaseobserveBinding;
+import com.devfestmn.bindingandroid.databinding.ObservablefieldBinding;
 import com.devfestmn.bindingandroid.handlers.Avengers;
 import com.devfestmn.bindingandroid.model.Marvel;
 import com.devfestmn.bindingandroid.model.SuperHero;
-import com.devfestmn.bindingandroid.model.SuperHeroObservable;
+import com.devfestmn.bindingandroid.model.SuperHeroPlain;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BaseObservableActivity extends AppCompatActivity {
+public class ObservableFieldActivity extends AppCompatActivity {
 
-    SuperHeroObservable superHeroObservable = new SuperHeroObservable();
-    int index = 0;
+    SuperHeroPlain superHeroPlain = new SuperHeroPlain();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BaseobserveBinding binding = DataBindingUtil.setContentView(this, R.layout.baseobserve);
+        ObservablefieldBinding binding = DataBindingUtil.setContentView(this, R.layout.observablefield);
         setRandomSuperhero(null);
-        binding.setSuperhero(superHeroObservable);
+        binding.setSuperhero(superHeroPlain);
         binding.setHandlers(new Avengers());
     }
 
@@ -40,11 +39,11 @@ public class BaseObservableActivity extends AppCompatActivity {
         ArrayList<SuperHero> heros = Marvel.getSuperHeros(this);
         int i = new Random().nextInt(heros.size());
         SuperHero superHero = heros.get(i);
-        superHeroObservable.setName(superHero.getName());
-        superHeroObservable.setAlias(superHero.getAlias());
-        superHeroObservable.setAvenger(superHero.isAvenger());
-        superHeroObservable.setFirstAppearance(superHero.getFirstAppearance());
-        superHeroObservable.setImageUrl(superHero.getImageUrl());
+        superHeroPlain.name.set(superHero.getName());
+        superHeroPlain.alias.set(superHero.getAlias());
+        superHeroPlain.avenger.set(superHero.isAvenger());
+        superHeroPlain.firstAppearance.set(superHero.getFirstAppearance());
+        superHeroPlain.imageUrl.set(superHero.getImageUrl());
     }
 
 }
