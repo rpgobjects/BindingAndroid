@@ -29,6 +29,10 @@
             android:name=".ObservableFieldActivity"
             android:label="@string/observefield_binding"
             android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".ObservableCollectionActivity"
+            android:label="@string/observecollection_binding"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
