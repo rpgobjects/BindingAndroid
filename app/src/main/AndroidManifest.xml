@@ -33,6 +33,10 @@
             android:name=".ObservableCollectionActivity"
             android:label="@string/observecollection_binding"
             android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".RecyclerViewActivity"
+            android:label="@string/recyclerview_binding"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

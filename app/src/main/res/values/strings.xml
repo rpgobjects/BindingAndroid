@@ -4,5 +4,6 @@
     <string name="baseobservable_binding">BaseObservable Binding</string>
     <string name="observefield_binding">ObservableField Binding</string>
     <string name="observecollection_binding">Observable Collection Binding</string>
+    <string name="recyclerview_binding">RecyclerView Binding</string>
     <string name="firstAppearanceLine">%1$s first appeared in %2$s</string>
 </resources>

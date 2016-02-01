@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // NO Binding
         Button button = (Button) findViewById(R.id.pojo_binding_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,ObservableCollectionActivity.class));
+            }
+        });
+
+        button = (Button) findViewById(R.id.recyclerview_binding_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,RecyclerViewActivity.class));
             }
         });
     }

@@ -4,33 +4,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.devfestmn.bindingandroid.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <Button
-        android:layout_margin="16dp"
-        android:layout_width="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/pojo_binding"
         android:id="@+id/pojo_binding_button"/>
 
     <Button
-        android:layout_margin="16dp"
-        android:layout_width="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/baseobservable_binding"
         android:id="@+id/baseobservable_binding_button"/>
 
     <Button
-        android:layout_margin="16dp"
-        android:layout_width="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/observefield_binding"
         android:id="@+id/observablefield_binding_button"/>
 
     <Button
-        android:layout_margin="16dp"
-        android:layout_width="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/observecollection_binding"
         android:id="@+id/observablecollection_binding_button"/>
+
+    <Button
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/recyclerview_binding"
+        android:id="@+id/recyclerview_binding_button"/>
 </LinearLayout>
