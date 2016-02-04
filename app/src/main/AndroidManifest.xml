@@ -37,6 +37,10 @@
             android:name=".RecyclerViewActivity"
             android:label="@string/recyclerview_binding"
             android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".ButterKnifeActivity"
+            android:label="@string/butterknife_binding"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

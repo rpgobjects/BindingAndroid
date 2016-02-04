@@ -41,4 +41,11 @@
         android:layout_height="wrap_content"
         android:text="@string/recyclerview_binding"
         android:id="@+id/recyclerview_binding_button"/>
+
+    <Button
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/butterknife_binding"
+        android:id="@+id/butterknife_binding_button"/>
 </LinearLayout>

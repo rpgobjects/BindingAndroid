@@ -56,6 +56,14 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,RecyclerViewActivity.class));
             }
         });
+
+        button = (Button) findViewById(R.id.butterknife_binding_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,ButterKnifeActivity.class));
+            }
+        });
     }
 
 }
