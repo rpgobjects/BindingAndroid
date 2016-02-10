@@ -1,1 +1,802 @@
-test
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@Binding Android</title>
+    <meta charset="utf-8">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+        @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+        @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+        body { font-family: 'Droid Serif'; }
+        h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+        }
+
+        h1 {
+        color: #6ab344;
+        }
+
+        .butter {
+        color: #ECC347;
+        }
+
+        .green A {
+        color: #6ab344;
+        }
+
+        .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+        .inverse {
+        background: #272822;
+        color: #d6d6d4;
+        }
+
+        .standard {
+
+        }
+
+        .left {
+        color: blue;
+        }
+
+
+        .screenshot IMG {
+        width: 225px;
+        }
+
+    </style>
+</head>
+<body>
+<textarea id="source">
+
+class: center, middle, inverse
+
+# @Binding Android
+## Chris Davis
+Consulting Developer
+
+rpgobjects.com
+
+github.com/rpgobjects
+
+linkedin.com/in/rpgobjects
+
+plus.google.com/+ChrisDavis0
+
+---
+# View and Data Binding
+
+## Why?
+
+--
+
+How many times have you done this?
+```Java
+Button button = (Button) findViewById(R.id.pojo_binding_button)
+```
+
+--
+
+How about this?
+```Java
+button.setText('Some text');
+```
+
+--
+1000 times?
+```Java
+button.setOnClickListener(handler);
+```
+
+---
+class: center, middle, inverse
+
+# Example Project
+
+.screenshot[![](screen500.jpg)]
+
+.green[https://github.com/rpgobjects/BindingAndroid]
+
+---
+
+# Example Data
+
+marvel.json:
+
+```Json
+{
+  "name" : "Spider-Man",
+  "alias" : "Peter Benjamin Parker",
+  "avenger" : true,
+  "firstAppearance" : "Amazing Fantasy #15 (1962)",
+  "imageUrl" : "http://x.annihil.us/u/prod/marvel/i/mg/6/60/538cd3628a05e.jpg"
+},
+....
+```
+
+---
+class: center, middle, inverse
+
+
+# Before Android Databinding
+
+---
+
+class: center, middle
+
+# .butter[Butter Knife]
+
+![Default-aligned image](butterknife_logo.png)
+
+jakewharton.github.io/butterknife
+
+
+---
+
+# .butter[Butter Knife]
+
+--
+
+View Binding:
+
+```Java
+@Bind(R.id.title) TextView title;
+@Bind({ R.id.first_name, R.id.middle_name, R.id.last_name })
+  List<EditText> nameViews;
+    ```
+
+    --
+
+    Resource Binding:
+
+    ```Java
+    @BindString(R.string.title) String title;
+    @BindDrawable(R.drawable.graphic) Drawable graphic;
+    @BindColor(R.color.red) int red;
+    @BindDimen(R.dimen.spacer) Float spacer;
+    ```
+
+    --
+
+    Listener Binding:
+
+    ```Java
+    @OnClick(R.id.submit)
+    public void submit(View view) {....}
+
+    @OnClick({ R.id.door1, R.id.door2, R.id.door3 })
+    public void pickDoor(DoorView door) {....}
+    ```
+
+    ---
+
+    # .butter[Butter Knife Example]
+
+    ```Java
+    public class ButterKnifeActivity extends AppCompatActivity {
+    // Bind views
+    @Bind(R.id.hero_image) ImageView heroImage;
+    @Bind(R.id.hero_name) TextView heroName;
+    // Bind Resources
+    @BindString(R.string.firstAppearanceLine) String firstAppearanceLine;
+    ....
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.butterknife);
+    // Bind activity
+    *       ButterKnife.bind(this);
+    // Use Views!
+    }
+
+    // Bind listner
+    @OnClick(R.id.avenger_button)
+    void onAvengerClick(View view) {....}
+    }
+    ```
+
+
+    ---
+
+    class: center, middle, inverse
+
+    # Android Databinding
+
+
+    ---
+
+    # Gradle Setup
+
+    ```Gradle
+    // Top-level build file
+    buildscript {
+    ....
+    dependencies {
+    classpath 'com.android.tools.build:gradle:1.5.0' //  1.5.0+
+    }
+    }
+    ```
+
+    ```Gradle
+    // app build file
+    android {
+    ....
+    dataBinding {
+    enabled = true
+    }
+    }
+    ```
+    --
+
+    ## Supports Android 2.1 (API level 7+) and up!
+
+    ---
+
+    #Layout Files
+
+    ### New Layout Format:
+    ```XML
+    <layout xmlns:android="http://schemas.android.com/apk/res/android" >
+        <data>
+            <variable name="superhero" type="SuperHero" />
+            <variable name="index" type="int"/>
+            <import type="android.view.View"/>
+        </data>
+        <RelativeLayout >
+            ....
+        </RelativeLayout>
+    </layout>
+    ```
+
+    ---
+
+    class: center, middle, inverse
+
+    #Basic Data Binding*
+
+    *For data that never changes.
+
+    ---
+
+    #POJO / JavaBean Data Object
+
+
+    ```Java
+    public class SuperHero {
+    String name;
+    String alias;
+    boolean avenger;
+    String firstAppearance;
+    String imageUrl;
+
+    public String getAlias() {
+    return alias;
+    }
+
+    public boolean isAvenger() {
+    return avenger;
+    }
+
+    public String getFirstAppearance() {
+    return firstAppearance;
+    }
+
+    public String getName() {
+    return name;
+    }
+    ....
+    }
+    ```
+
+    ---
+
+    #Object Variables
+
+    - The `superhero` variable describes a property that may be used in the layout.
+    - Expressions within the layout are written in the attribute properties using the `@{}`.
+
+    ```XML
+    <layout ....>
+        <data>
+            <variable name="superhero" type="com.devfestmn.model.SuperHero*" />
+            ....
+        </data>
+        <RelativeLayout ....>
+            <TextView
+                    ....
+                    android:text="@{superhero.name}"
+                    />
+        </RelativeLayout>
+    </layout>
+    ```
+    *Different path in example project
+
+
+    ---
+
+    #Bind it!
+
+    --
+
+    - Binding class will be generated based on the name of the layout file*
+
+    --
+
+    - Use `DataBindingUtil.setContentView` instead of `setContentView`
+
+    --
+
+    - Use returning Binding object to set data.
+
+    --
+
+    ```Java
+
+    public class PojoActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    *       PojobindBinding binding =
+    *            DataBindingUtil.setContentView(this, R.layout.pojobind);
+    ArrayList&lt;SuperHero&gt; heros = SuperHero.getSuperHeros(this);
+    int i = new Random().nextInt(heros.size());
+    *       binding.setSuperhero(heros.get(i));
+    ....
+    }
+    ....
+    }
+
+    ```
+
+    *Can be changed if required
+
+    ---
+
+    #Expression Language
+    Java like expressions you can use in `@{}`
+
+    - Mathematical `+ - / * %`
+    - String concatenation `+`
+    - Logical `&& ||`
+    - Binary `& | ^`
+    - Unary `+ - ! ~`
+    - Shift `>> >>> <<`
+    - Comparison `== > < >= <=`
+    - `instanceof`
+    - Grouping `()`
+    - Literals `- character, String, numeric, null`
+    - Cast
+    - Method calls
+    - Field access
+    - Array access []
+    - Ternary operator `?:`
+    - **Missing:** `this`, `super`, `new`
+
+    ---
+
+    #Imports
+
+    You can import for easy reference to classes inside your layout file
+
+    ```XML
+    <layout ....>
+        <data>
+            <import type="com.devfestmn.bindingandroid.model.SuperHero" />
+            <import type="android.view.View"/>
+            <variable name="superhero" type="SuperHero" />
+            ....
+        </data>
+        <RelativeLayout ....>
+            <TextView
+                    ....
+                    android:text="@{superhero.name}"
+                    />
+            <TextView
+                    ....
+                    android:text='@{"AKA " + superhero.alias}'
+                    android:visibility="@{(superhero.alias!=null) ? View.VISIBLE : View.GONE}"
+                    />
+
+        </RelativeLayout>
+    </layout>
+    ```
+
+    ---
+
+    #Resources
+
+    - Access resources as part of expressions
+
+    ```XML
+    android:padding="@{large? @dimen/largePadding : @dimen/smallPadding}"
+    ```
+
+    ---
+
+    #Resources
+
+    - Access resources as part of expressions
+
+    ```XML
+    android:padding="@{large? @dimen/largePadding : @dimen/smallPadding}"
+    ```
+
+    - Format strings can be evaluated by providing parameters:
+
+    ```XML
+    <resources>
+        ....
+        <string name="firstApp">%1$s first appeared in %2$s</string>
+    </resources>
+    ```
+
+    ```XML
+    <TextView
+            ....
+            android:text="@{@string/firstApp(superhero.name, superhero.firstAppearance)}"
+            />
+    ```
+
+    ---
+
+    #Binding Events
+
+    --
+
+    Handler
+
+    ```Java
+    public class Avengers {
+
+    public void assemble(View view) {
+    Snackbar.make(view,"Assemble!",Snackbar.LENGTH_LONG).show();
+    }
+
+    public void notMember(View view) {
+    Snackbar.make(view,"You're not an Avenger!",Snackbar.LENGTH_LONG).show();
+    }
+    }
+    ```
+
+    --
+
+    Variable and Binding expression
+
+    ```XML
+    <import type="com.devfestmn.bindingandroid.handlers.Avengers" />
+    <variable name="handlers" type="Avengers" />
+    ```
+
+    ```XML
+    <ImageButton
+            android:onClick="@{superhero.avenger ? handlers.assemble : handlers.notMember}"
+            />
+    ```
+
+    ---
+
+    class: center, middle, inverse
+
+    # What about images?*
+
+    *How not to block the UI thread
+
+    ---
+
+    #Binding Adapters
+
+    - When attributes need custom binding logic.
+    - Attribute has no setter `android:paddingLeft`
+    - Requires background task i.e. image loading
+
+    ```Java
+    public class PojoActivity extends AppCompatActivity {
+    ....
+    @BindingAdapter("binder:imageUrl")
+    public static void loadImage(ImageView view, String url) {
+    Picasso.with(view.getContext()).load(url)
+    .placeholder(R.drawable.marvel_heroes).into(view);
+    }
+
+    }
+    ```
+
+    ```Xml
+    <ImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:imageUrl="@{superhero.imageUrl} "
+            />
+    ```
+
+    ---
+
+    class: center, middle, inverse
+
+    # Observable Objects*
+
+    *Objects that implement the `Observable` interface
+
+    ---
+
+    # Observable Options
+
+    --
+
+    Derive object from class `BaseObservable`
+
+    ```Java
+    class SuperHeroObservable extends BaseObservable
+    ```
+
+    --
+
+    Add `ObservableFields` to your object
+
+    ```Java
+    ObservableField<String> name = new ObservableField<>()
+        ```
+
+        --
+
+        Use Observable Collections `ObservableArrayList` or `ObservableArrayMap`
+
+        ```Java
+        ObservableArrayMap<String, Object> superHeroMap = new ObservableArrayMap<>();
+        ```
+        --
+
+        Create your own `Observable` object
+
+        ```Java
+        class FancyObservable implements Observable
+        ```
+
+        ---
+
+        # BaseObservable
+
+        ```Java
+        public class SuperHeroObservable extends BaseObservable {
+        String name;
+        String alias;
+        ....
+
+        @Bindable
+        public String getAlias() { return alias; }
+
+        @Bindable
+        public String getName() { return name; }
+
+        ....
+
+        public void setAlias(String alias) {
+        this.alias = alias;
+        notifyPropertyChanged(BR.alias);
+        }
+
+        public void setName(String name) {
+        this.name = name;
+        notifyPropertyChanged(BR.name);
+        }
+
+        ....
+        }
+        ```
+
+        ---
+
+        # ObservableFields
+
+        --
+
+        Definition
+
+        ```Java
+        public class SuperHeroPlain {
+        public final ObservableField<String> name = new ObservableField<>();
+            public final ObservableField<String> alias = new ObservableField<>();
+                public final ObservableField<Boolean> avenger = new ObservableField<>();
+                    public final ObservableField<String> firstAppearance = new ObservableField<>();
+                        public final ObservableField<String> imageUrl = new ObservableField<>();
+                            }
+                            ```
+
+                            --
+
+                            Usage
+
+                            ```Java
+                            public void setRandomSuperhero(View button) {
+                            ArrayList<SuperHero> heros = Marvel.getSuperHeros(this);
+                                int i = new Random().nextInt(heros.size());
+                                SuperHero superHero = heros.get(i);
+                                superHeroPlain.name.set(superHero.getName());
+                                superHeroPlain.alias.set(superHero.getAlias());
+                                superHeroPlain.avenger.set(superHero.isAvenger());
+                                superHeroPlain.firstAppearance.set(superHero.getFirstAppearance());
+                                superHeroPlain.imageUrl.set(superHero.getImageUrl());
+                                }
+                                ```
+
+                                ---
+
+                                # BaseObservable and ObservableFields layouts
+
+                                ### Changes: None*
+
+                                *other than variable types:
+
+                                ```XML
+                                <variable name="superhero" type="com.devfestmn.model.SuperHeroObservable" />
+                                <variable name="superhero" type="com.devfestmn.model.SuperHeroPlain" />
+                                ```
+
+                                ---
+
+                                # Observable Collections
+
+                                ```Java
+                                ObservableArrayMap<String, Object> superHeroMap = new ObservableArrayMap<>();
+
+                                // setRandomSuperhero method
+                                SuperHero superHero = heros.get(i);
+                                superHeroMap.put("name", superHero.getName());
+                                superHeroMap.put("alias", superHero.getAlias());
+                                superHeroMap.put("avenger", superHero.isAvenger());
+                                superHeroMap.put("firstAppearance", superHero.getFirstAppearance());
+                                superHeroMap.put("imageUrl", superHero.getImageUrl());
+                                ```
+
+                                --
+
+                                ```XML
+                                <data>
+                                    <import type="android.databinding.ObservableMap" />
+                                    <variable name="superhero" type="ObservableMap&#38;lt;String, Object>" />
+                                </data>
+
+                                <TextView
+                                        android:text="@{superhero[`name`]}"
+                                        />
+
+                                <ImageButton
+                                        android:onClick="@{((Boolean) superhero[`avenger`]) ? ....}"
+                                        />
+                                ```
+
+                                ---
+
+                                class: center, middle, inverse
+
+                                # What about RecyclerView?*
+
+                                *There's more than one way! Here's how I do it.
+
+                                ---
+
+                                # ViewHolder
+
+                                --
+
+                                - Layout file: no changes required!
+
+                                - Use `DataBindingUtil.bind` to get/create bindings
+
+                                ```Java
+                                public static class SuperHeroHolder extends RecyclerView.ViewHolder {
+                                *        SuperheroItemBinding superheroItemBinding;
+
+                                public SuperHeroHolder(View itemView) {
+                                super(itemView);
+                                *           superheroItemBinding = DataBindingUtil.bind(itemView);
+                                }
+                                }
+                                ```
+
+                                --
+
+                                - `DataBindingUtil` has other binding methods
+
+                                ---
+
+                                # Adapter
+
+                                --
+
+                                Inflate layout without bindings
+
+                                ```Java
+                                @Override
+                                public SuperHeroHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                                *       View itemView = LayoutInflater.from(parent.getContext())
+                                .inflate(R.layout.superhero_item, parent, false);
+                                return new SuperHeroHolder(itemView);
+                                }
+                                //
+                                ```
+
+                                --
+
+                                Set binded variable
+
+                                ```Java
+                                @Override
+                                public void onBindViewHolder(SuperHeroHolder holder, int position) {
+                                Superhero hero = heros.get(position);
+                                *       holder.superheroItemBinding.setSuperhero(hero);
+                                }
+                                ```
+
+                                ---
+
+                                # Adapter / ViewHolder
+
+                                ```Java
+                                public class SuperHeroAdapter extends RecyclerView.Adapter<....> {
+                                ArrayList<SuperHero> heros;
+                                    ....
+
+                                    @Override
+                                    public SuperHeroHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                                    View itemView = LayoutInflater.from(parent.getContext())
+                                    .inflate(R.layout.superhero_item, parent, false);
+                                    return new SuperHeroHolder(itemView);
+                                    }
+
+                                    @Override
+                                    public void onBindViewHolder(SuperHeroHolder holder, int position) {
+                                    holder.superheroItemBinding.setSuperhero(heros.get(position));
+                                    }
+
+                                    public static class SuperHeroHolder extends RecyclerView.ViewHolder {
+                                    SuperheroItemBinding superheroItemBinding;
+                                    public SuperHeroHolder(View itemView) {
+                                    super(itemView);
+                                    superheroItemBinding = DataBindingUtil.bind(itemView);
+                                    }
+                                    }
+                                    ....
+                                    }
+                                    ```
+
+                                    ---
+
+                                    class: center, middle
+
+                                    # .butter[ButterKnife]
+                                    ###vs
+                                    #Android Data Binding
+
+                                    ---
+
+                                    class: center, middle, inverse
+
+                                    # Thanks!
+                                    ## Chris Davis
+                                    Consulting Developer, RPGObjects, LLC
+
+                                    rpgobjects.com
+
+                                    github.com/rpgobjects
+
+                                    linkedin.com/in/rpgobjects
+
+                                    plus.google.com/+ChrisDavis0
+
+
+
+</textarea>
+<script src="remark.js">
+</script>
+<script>
+    var slideshow = remark.create({
+        highlightLines: true,
+        countIncrementalSlides: false
+    });
+</script>
+</body>
+</html>
